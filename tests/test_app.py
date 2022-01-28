@@ -25,3 +25,7 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_post, FakeResponse(201, {'id': 1}))
         self.app.rejestracja('01230902964', 'login', 'haslo', )
         mock_post.assert_called_once()
+
+    def test_rejestracja_zly_typ(self):
+        assert_that(self.app.rejestracja).raises(
+            TypeError).when_called_with('string')
