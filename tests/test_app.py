@@ -42,3 +42,7 @@ class ZalogujSieTest(unittest.TestCase):
                                                     error_message='Blad'))
         self.app.rejestracja('01230902964', 'login', 'haslo')
         mock_post.assert_called_once()
+
+    def test_rejestracja_haslo_int(self):
+        assert_that(self.app.rejestracja).raises(
+            ValueError).when_called_with('peselpeslelp', 'login', 1)
