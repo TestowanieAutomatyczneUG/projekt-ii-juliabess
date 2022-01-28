@@ -29,3 +29,9 @@ class ZalogujSieTest(unittest.TestCase):
     def test_rejestracja_zly_typ(self):
         assert_that(self.app.rejestracja).raises(
             TypeError).when_called_with('string')
+
+    @patch('src.application.requests.post')
+    def test_rejestracja_istniejace_konto(self, mock_post):
+        create_request_mock(mock_post, FakeResponse(409))
+        response = self.app.rejestracja('01230902964', 'login', 'haslo')
+        assert_that(response).is_equal_to('Podany użytkownik już istnieje')
