@@ -19,3 +19,9 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_post, FakeResponse(201, {'id': 1}))
         response = self.app.rejestracja('91230303040', 'testowanie', 'haslo1234')
         assert_that(response.json['id']).is_greater_than(0)
+
+    @patch('src.application.requests.post')
+    def test_rejestracja_mock_post(self, mock_post):
+        create_request_mock(mock_post, FakeResponse(201, {'id': 1}))
+        self.app.rejestracja('01230902964', 'login', 'haslo', )
+        mock_post.assert_called_once()
