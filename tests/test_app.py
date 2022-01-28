@@ -35,3 +35,10 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_post, FakeResponse(409))
         response = self.app.rejestracja('01230902964', 'login', 'haslo')
         assert_that(response).is_equal_to('Podany użytkownik już istnieje')
+
+    @patch('src.application.requests.post')
+    def test_rejestracja_inne_bledy_mock(self, mock_post):
+        create_request_mock(mock_post, FakeResponse(404,
+                                                    error_message='Blad'))
+        self.app.rejestracja('01230902964', 'login', 'haslo')
+        mock_post.assert_called_once()
