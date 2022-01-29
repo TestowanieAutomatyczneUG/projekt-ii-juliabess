@@ -243,3 +243,7 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_put, FakeResponse(200, {'login': 'login'}))
         self.app.edycja_login('login')
         mock_put.assert_called_once()
+
+    def test_edycja_login_zly_typ(self):
+        assert_that(self.app.edycja_login).raises(
+            TypeError).when_called_with('integer', {'login': 'login'})
