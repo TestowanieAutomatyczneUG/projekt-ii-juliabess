@@ -134,3 +134,10 @@ class ZalogujSieTest(unittest.TestCase):
             return_value=FakeResponse(404, error_message= "Nie znaleziono użytkownika"))
         self.app.usun()
         self.app.usun.assert_called_with()
+
+
+    def test_usuwanie_server_error(self):
+        self.app.usun = MagicMock(side_effect=ConnectionError(
+            'Ups... Coś poszło nie tak'))
+        assert_that(self.app.usun).raises(
+            ConnectionError).when_called_with()
