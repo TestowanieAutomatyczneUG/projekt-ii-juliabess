@@ -255,3 +255,10 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_login_brak_Wartosci(self):
         assert_that(self.app.edycja_login).raises(
             ValueError).when_called_with('')
+
+    @patch('src.application.requests.put')
+    def test_edycja_login_login_istnieje(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(409,
+                                                   error_message='Taki login juz istnieje'))
+        response = self.app.edycja_login('login')
+        assert_that(response).is_equal_to('Ups... Coś poszło nie tak')
