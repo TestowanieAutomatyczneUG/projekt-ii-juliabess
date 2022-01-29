@@ -355,3 +355,11 @@ class ZalogujSieTest(unittest.TestCase):
             ValueError).when_called_with(1)
 
 
+    def test_edycja_hasla_haslo_float(self):
+        assert_that(self.app.edycja_haslo).raises(
+            ValueError).when_called_with(1.7)
+
+
+
+
+
