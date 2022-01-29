@@ -237,3 +237,9 @@ class ZalogujSieTest(unittest.TestCase):
                                                    {'login': 'login'}))
         response = self.app.edycja_login('login')
         assert_that(response.json['login']).is_equal_to('login')
+
+    @patch('src.application.requests.put')
+    def test_edycja_login_mock(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(200, {'login': 'login'}))
+        self.app.edycja_login('login')
+        mock_put.assert_called_once()
