@@ -141,3 +141,7 @@ class ZalogujSieTest(unittest.TestCase):
             'Ups... Coś poszło nie tak'))
         assert_that(self.app.usun).raises(
             ConnectionError).when_called_with()
+
+    def test_usun_login_int(self):
+        assert_that(self.app.usun).raises(
+            ValueError).when_called_with(1)
