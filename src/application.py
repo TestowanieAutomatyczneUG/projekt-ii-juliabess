@@ -36,3 +36,23 @@ class ZalogujSie:
             return 'Podany użytkownik już istnieje'
         else:
             return 'Ups... Coś poszło nie tak'
+
+
+    def login(self, login, haslo):
+        if type(login) is not str:
+            raise ValueError
+        if len(login) < 1:
+            raise ValueError
+        if type(haslo) is not str:
+            raise ValueError
+        if len(haslo) < 1:
+            raise ValueError
+
+        body = {'login': login, 'haslo':haslo}
+        response = requests.post(self.login , json=body)
+        if 200 <= response.status_code <= 299:
+            return response
+        elif response.status_code == 409:
+            return 'Podany login lub hasło jest nieprawidłowy'
+        else:
+            return 'Ups... Coś poszło nie tak'
