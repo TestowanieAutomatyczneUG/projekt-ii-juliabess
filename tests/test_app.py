@@ -369,5 +369,14 @@ class ZalogujSieTest(unittest.TestCase):
         self.assertEqual(len(response.json['results']), 2)
 
 
+    def test_lista_uzytkownikow_mock(self):
+        self.app.lista_uzytkownikow = MagicMock()
+        self.app.lista_uzytkownikow().return_value = FakeResponse(200,  {'results': [('01230202020', 'login', 'haslo'),
+                                                                   ('01927382926', 'login', 'haslo')]})
+
+
+        self.app.lista_uzytkownikow.assert_called_once()
+
+
 
 
