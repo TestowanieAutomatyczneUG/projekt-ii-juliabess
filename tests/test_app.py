@@ -230,3 +230,10 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_pesel_pesel_float(self):
         assert_that(self.app.edycja_pesel).raises(
             ValueError).when_called_with(1.7)
+
+    @patch('src.application.requests.put')
+    def test_edycja_login(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(201,
+                                                   {'login': 'login'}))
+        response = self.app.edycja_login('login')
+        assert_that(response.json['login']).is_equal_to('login')
