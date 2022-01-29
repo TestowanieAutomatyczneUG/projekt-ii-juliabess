@@ -303,3 +303,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_login_login_int(self):
         assert_that(self.app.edycja_login).raises(
             ValueError).when_called_with(1)
+
+    def test_edycja_login_login_float(self):
+        assert_that(self.app.edycja_login).raises(
+            ValueError).when_called_with(1.7)
