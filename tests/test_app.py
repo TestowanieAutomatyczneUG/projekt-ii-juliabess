@@ -346,4 +346,8 @@ class ZalogujSieTest(unittest.TestCase):
         self.app.edycja_haslo('haslo')
         mock_put.assert_called_once()
 
+    def test_edycja_hasla_haslo_puste(self):
+        assert_that(self.app.edycja_haslo).raises(
+            ValueError).when_called_with('')
+
 
