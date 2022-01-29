@@ -78,3 +78,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_rejestracja_login_pusty(self):
         assert_that(self.app.rejestracja).raises(
             ValueError).when_called_with('peselpesell' , '' , 'haslo')
+
+    def test_rejestracja_pesel_za_krotki(self):
+        assert_that(self.app.rejestracja).raises(
+            ValueError).when_called_with('pessell', 'login', 'haslo')
