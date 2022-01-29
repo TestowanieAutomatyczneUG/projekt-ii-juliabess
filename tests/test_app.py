@@ -334,3 +334,9 @@ class ZalogujSieTest(unittest.TestCase):
         assert_that(self.app.edycja_haslo).raises(
             ValueError).when_called_with('')
 
+    @patch('src.application.requests.put')
+    def test_edycja_haslo_inne_bledy(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(403))
+        response = self.app.edycja_haslo('haslo')
+        assert_that(response).is_equal_to_ignoring_case('Ups... Coś poszło nie tak')
+
