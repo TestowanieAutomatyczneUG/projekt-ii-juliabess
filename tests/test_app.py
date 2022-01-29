@@ -149,3 +149,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_usun_login_float(self):
         assert_that(self.app.usun).raises(
             ValueError).when_called_with(1.5)
+
+    def test_usun_login_pusty(self):
+        assert_that(self.app.usun).raises(
+            ValueError).when_called_with('')
