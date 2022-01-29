@@ -383,3 +383,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_lista_uzytkownikow_blad_polaczenia(self):
         self.app.lista_uzytkownikow = Mock(side_effect=ConnectionError('Blad'))
         assert_that(self.app.lista_uzytkownikow).raises(ConnectionError)
+
+    def tearDown(self) -> None:
+        self.mongoose = None
+        self.app = None
