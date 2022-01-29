@@ -387,3 +387,9 @@ class ZalogujSieTest(unittest.TestCase):
     def tearDown(self) -> None:
         self.mongoose = None
         self.app = None
+
+class FakeResponse(object):
+    def __init__(self, status_code, json=None, error_message=None):
+        self.status_code = status_code
+        self.json = json
+        self.error_message = error_message
