@@ -128,3 +128,9 @@ class ZalogujSieTest(unittest.TestCase):
             return_value=FakeResponse(404, error_message= "Nie znaleziono użytkownika"))
         response = self.app.usun()
         assert_that(response.error_message).contains('Nie', 'znaleziono')
+
+    def test_usuwanie_nie_istnieje_mock(self):
+        self.app.usun = MagicMock(
+            return_value=FakeResponse(404, error_message= "Nie znaleziono użytkownika"))
+        self.app.usun()
+        self.app.usun.assert_called_with()
