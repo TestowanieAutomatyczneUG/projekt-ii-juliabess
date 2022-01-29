@@ -102,3 +102,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_login_haslo_puste(self):
         assert_that(self.app.login).raises(
             ValueError).when_called_with('login', '')
+
+    def test_login_login_pusty(self):
+        assert_that(self.app.login).raises(
+            ValueError).when_called_with('', 'haslo')
