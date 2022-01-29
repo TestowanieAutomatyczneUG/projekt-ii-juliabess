@@ -192,3 +192,10 @@ class ZalogujSieTest(unittest.TestCase):
                                                             error_message='Pesel istnieje')
         self.app.update(1, {'pesel':'pesel'})
         self.app.update.assert_called_once()
+
+    @patch('src.application.requests.put')
+    def test_edycja_pesel_nie_istnieje(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(404,
+                                                   error_message='nie znaleziono uzytkownika'))
+        response = self.app.edycja_pesel('peselpeselp')
+        assert_that(response).contains('Ups', 'nie')
