@@ -70,3 +70,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_rejestracja_haslo_puste(self):
         assert_that(self.app.rejestracja).raises(
             ValueError).when_called_with('peselpeslelp', 'login', '')
+
+    def test_rejestracja_pesel_pusty(self):
+        assert_that(self.app.rejestracja).raises(
+            ValueError).when_called_with('', 'login', 'haslo')
