@@ -307,3 +307,10 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_login_login_float(self):
         assert_that(self.app.edycja_login).raises(
             ValueError).when_called_with(1.7)
+
+    @patch('src.application.requests.put')
+    def test_edycja_haslo(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(201,
+                                                   {'haslo': 'haslo'}))
+        response = self.app.edycja_haslo('haslo')
+        assert_that(response.json['haslo']).is_equal_to('haslo')
