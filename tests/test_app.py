@@ -90,3 +90,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_login_login_float(self):
         assert_that(self.app.login).raises(
             ValueError).when_called_with(3.6, 'haslo')
+
+    def test_login_haslo_int(self):
+        assert_that(self.app.login).raises(
+            ValueError).when_called_with('login', 1)
