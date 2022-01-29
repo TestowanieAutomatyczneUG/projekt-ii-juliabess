@@ -170,3 +170,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_pesel_zly_typ(self):
         assert_that(self.app.edycja_pesel).raises(
             TypeError).when_called_with('integer', {'pesel': 'pesel'})
+
+    def test_edycja_pesel_zly_typ_2(self):
+        assert_that(self.app.edycja_pesel).raises(
+            TypeError).when_called_with(2, 'object')
