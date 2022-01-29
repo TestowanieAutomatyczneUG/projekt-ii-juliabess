@@ -226,3 +226,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_pesel_pesel_int(self):
         assert_that(self.app.edycja_pesel).raises(
             ValueError).when_called_with(1)
+
+    def test_edycja_pesel_pesel_float(self):
+        assert_that(self.app.edycja_pesel).raises(
+            ValueError).when_called_with(1.7)
