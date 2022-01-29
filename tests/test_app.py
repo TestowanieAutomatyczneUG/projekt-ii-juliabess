@@ -283,3 +283,9 @@ class ZalogujSieTest(unittest.TestCase):
                                                    error_message='nie znaleziono użytkownika'))
         self.app.edycja_login('login')
         mock_put.assert_called_once()
+
+    @patch('src.application.requests.put')
+    def test_edycja_login_inne_bledy(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(403))
+        response = self.app.edycja_login('login')
+        assert_that(response).is_equal_to_ignoring_case('Ups... Coś poszło nie tak')
