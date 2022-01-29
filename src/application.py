@@ -70,3 +70,19 @@ class ZalogujSie:
             return response
         else:
             return 'Ups... Coś poszło nie tak'
+
+
+    def edycja_pesel(self, pesel):
+
+        if type(pesel) is not str:
+            raise ValueError
+        if len(pesel) != 11:
+            raise ValueError
+
+
+        body = {'pesel': pesel}
+        response = requests.put(self.update, json=body)
+        if 200 <= response.status_code <= 299:
+            return response
+        else:
+            return 'Ups... Coś poszło nie tak'
