@@ -122,3 +122,9 @@ class ZalogujSieTest(unittest.TestCase):
     def test_usuwanie_zly_typ_danych(self):
         assert_that(self.app.usun).raises(
             TypeError).when_called_with('haslo', 'jdjd')
+
+    def test_usuwanie_nie_istnieje(self):
+        self.app.usun = MagicMock(
+            return_value=FakeResponse(404, error_message= "Nie znaleziono użytkownika"))
+        response = self.app.usun()
+        assert_that(response.error_message).contains('Nie', 'znaleziono')
