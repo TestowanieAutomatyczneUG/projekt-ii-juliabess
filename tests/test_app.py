@@ -106,3 +106,9 @@ class ZalogujSieTest(unittest.TestCase):
     def test_login_login_pusty(self):
         assert_that(self.app.login).raises(
             ValueError).when_called_with('', 'haslo')
+
+    @patch('src.application.requests.delete')
+    def test_usuwanie_istnieje(self, mock_delete):
+        create_request_mock(mock_delete, FakeResponse(200, {'deleted': 'julia'}))
+        response = self.app.usun('julia')
+        assert_that(response.json['deleted']).is_equal_to('julia')
