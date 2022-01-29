@@ -314,3 +314,9 @@ class ZalogujSieTest(unittest.TestCase):
                                                    {'haslo': 'haslo'}))
         response = self.app.edycja_haslo('haslo')
         assert_that(response.json['haslo']).is_equal_to('haslo')
+
+    @patch('src.application.requests.put')
+    def test_edycja_haslo_mock(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(200, {'haslo': 'haslo'}))
+        self.app.edycja_haslo('haslo')
+        mock_put.assert_called_once()
