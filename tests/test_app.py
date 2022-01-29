@@ -178,3 +178,10 @@ class ZalogujSieTest(unittest.TestCase):
     def test_edycja_pesel_brak_Wartosci(self):
         assert_that(self.app.edycja_pesel).raises(
             ValueError).when_called_with('')
+
+    @patch('src.application.requests.put')
+    def test_edycja_pesel_pesel_istnieje(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(409,
+                                                   error_message='Taki pesel juz istnieje'))
+        response = self.app.edycja_login('pesel')
+        assert_that(response).is_equal_to('Ups... Coś poszło nie tak')
