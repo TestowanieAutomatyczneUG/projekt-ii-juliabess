@@ -185,3 +185,10 @@ class ZalogujSieTest(unittest.TestCase):
                                                    error_message='Taki pesel juz istnieje'))
         response = self.app.edycja_login('pesel')
         assert_that(response).is_equal_to('Ups... Coś poszło nie tak')
+
+    def test_edycja_pesel_istnieje_mock(self):
+        self.app.update = Mock()
+        self.app.update.return_value = FakeResponse(409,
+                                                            error_message='Pesel istnieje')
+        self.app.update(1, {'pesel':'pesel'})
+        self.app.update.assert_called_once()
