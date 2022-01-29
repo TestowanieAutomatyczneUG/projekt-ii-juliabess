@@ -153,3 +153,10 @@ class ZalogujSieTest(unittest.TestCase):
     def test_usun_login_pusty(self):
         assert_that(self.app.usun).raises(
             ValueError).when_called_with('')
+
+    @patch('src.application.requests.put')
+    def test_edycja_pesel(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(201,
+                                                   {'pesel': 'pesel'}))
+        response = self.app.edycja_pesel('peselpeselp')
+        assert_that(response.json['pesel']).is_equal_to('pesel')
