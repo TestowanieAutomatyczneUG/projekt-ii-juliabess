@@ -56,3 +56,17 @@ class ZalogujSie:
             return 'Podany login lub hasło jest nieprawidłowy'
         else:
             return 'Ups... Coś poszło nie tak'
+
+    def usun(self, login):
+        if type(login) is not str:
+            raise ValueError
+        if len(login) < 1:
+            raise ValueError
+
+
+        body = {'login': login}
+        response = requests.delete(self.delete, json=body)
+        if 200 <= response.status_code <= 299:
+            return response
+        else:
+            return 'Ups... Coś poszło nie tak'
