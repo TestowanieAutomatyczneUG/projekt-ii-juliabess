@@ -276,3 +276,10 @@ class ZalogujSieTest(unittest.TestCase):
                                                    error_message='nie znaleziono uzytkownika'))
         response = self.app.edycja_login('login')
         assert_that(response).contains('Ups', 'nie')
+
+    @patch('src.application.requests.put')
+    def test_uzytkownik_nie_istnieje_mock(self, mock_put):
+        create_request_mock(mock_put, FakeResponse(404,
+                                                   error_message='nie znaleziono użytkownika'))
+        self.app.edycja_login('login')
+        mock_put.assert_called_once()
