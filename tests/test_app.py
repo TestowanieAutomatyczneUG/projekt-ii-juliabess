@@ -350,4 +350,8 @@ class ZalogujSieTest(unittest.TestCase):
         assert_that(self.app.edycja_haslo).raises(
             ValueError).when_called_with('')
 
+    def test_edycja_hasla_haslo_int(self):
+        assert_that(self.app.edycja_haslo).raises(
+            ValueError).when_called_with(1)
+
 
