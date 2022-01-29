@@ -112,3 +112,9 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_delete, FakeResponse(200, {'deleted': 'julia'}))
         response = self.app.usun('julia')
         assert_that(response.json['deleted']).is_equal_to('julia')
+
+    @patch('src.application.requests.delete')
+    def test_usuwanie_istnieje_mock(self, mock_delete):
+        create_request_mock(mock_delete, FakeResponse(200))
+        self.app.usun('login')
+        mock_delete.assert_called_once()
