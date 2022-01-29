@@ -118,3 +118,7 @@ class ZalogujSieTest(unittest.TestCase):
         create_request_mock(mock_delete, FakeResponse(200))
         self.app.usun('login')
         mock_delete.assert_called_once()
+
+    def test_usuwanie_zly_typ_danych(self):
+        assert_that(self.app.usun).raises(
+            TypeError).when_called_with('haslo', 'jdjd')
