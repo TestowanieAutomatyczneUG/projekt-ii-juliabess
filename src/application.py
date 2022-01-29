@@ -115,3 +115,6 @@ class ZalogujSie:
             return response
         else:
             return 'Ups... Coś poszło nie tak'
+
+    def lista_uzytkownikow(self):
+        return requests.get(self.get)
