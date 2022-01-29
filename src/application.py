@@ -86,3 +86,17 @@ class ZalogujSie:
             return response
         else:
             return 'Ups... Coś poszło nie tak'
+
+    def edycja_login(self, login):
+
+        if type(login) is not str:
+            raise ValueError
+        if len(login) < 1:
+            raise ValueError
+
+        body = {login: 'login'}
+        response = requests.put(self.update, json=body)
+        if 200 <= response.status_code <= 299:
+            return response
+        else:
+            return 'Ups... Coś poszło nie tak'
