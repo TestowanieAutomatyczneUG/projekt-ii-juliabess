@@ -66,3 +66,7 @@ class ZalogujSieTest(unittest.TestCase):
     def test_rejestracja_login_float(self):
         assert_that(self.app.rejestracja).raises(
             ValueError).when_called_with('peselpesell' , 1.8 , 'haslo')
+
+    def test_rejestracja_haslo_puste(self):
+        assert_that(self.app.rejestracja).raises(
+            ValueError).when_called_with('peselpeslelp', 'login', '')
